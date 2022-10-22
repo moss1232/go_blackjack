@@ -1,6 +1,6 @@
 package main
 
-type Card struct {
-	Number string
-	Suit   string
+type card struct {
+	number string
+	suit   string
 }
