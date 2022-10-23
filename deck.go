@@ -7,13 +7,13 @@ import (
 
 type deck []card
 
-var suit = [4]string{"Spade", "Clover", "Heart", "Diamond"}
-var number = [13]string{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"}
+//var suit = [4]string{"Spade", "Clover", "Heart", "Diamond"}
+//var number = [13]string{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"}
 
 func newDeck() *deck {
 	d := make(deck, 0, 52)
-	for _, s := range suit {
-		for _, n := range number {
+	for s := 1; s <= 4; s++ {
+		for n := 1; n <= 4; n++ {
 			d = append(d, card{suit: s, number: n})
 		}
 	}
