@@ -25,7 +25,10 @@ func askDraw() bool {
 
 func setup(p, dl *player, dc *deck) {
 	p.hit(*dc)
-	dl.hit(*dc)
+	for i := 0; i < 17; {
+		dl.hit(*dc)
+		i = dl.score()
+	}
 	p.prettyHand()
 	dl.prettyHand()
 }
