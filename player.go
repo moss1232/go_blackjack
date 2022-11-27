@@ -3,26 +3,19 @@ package main
 import "fmt"
 
 type player struct {
-	name string
+	role string
 	hand []card
 }
 
-func NewPlayer(name string) *player {
+func newPlayer(role string) *player {
 	return &player{
-		name: name,
+		role: role,
 		hand: []card{},
 	}
 }
 
-func (p *player) sumHand() (sum int) {
-	for _, v := range p.hand {
-		sum += v.number
-	}
-	return
-}
-
-func (p *player) prettyHand() {
-	fmt.Printf("%v ", p.name)
+func (p *player) renderHand() {
+	fmt.Printf("%v ", p.role)
 	fmt.Print("Card:")
 	for _, h := range p.hand {
 		switch h.suit {

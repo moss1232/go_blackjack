@@ -7,54 +7,54 @@ import (
 	"strconv"
 )
 
-func askDraw() bool {
-	fmt.Println("ヒット y/n")
+func askHit() bool {
+	fmt.Println("hit? y/n")
 	input := bufio.NewScanner(os.Stdin)
 	input.Scan()
 	fmt.Println("----------------------------")
 	ans := input.Text()
 	if ans == "y" {
 		return true
-	} else if ans == "n" {
-		return false
-	} else {
-		fmt.Print("コールします。")
 	}
+	fmt.Println("call")
 	return false
 }
 
 func setup(p, dl *player, dc *deck) {
+	dl.hit(*dc)
 	p.hit(*dc)
-	for i := 0; i < 17; {
-		dl.hit(*dc)
-		i = dl.score()
-	}
-	p.prettyHand()
-	dl.prettyHand()
+	p.renderHand()
+	dl.renderHand()
 }
 
 func hitOrCall(p, dl *player, dc *deck, hit bool) string {
 	if hit {
 		p.hit(*dc)
-		if p.sumHand() > 21 {
-			fmt.Printf("%v\n", p.sumHand())
+		if p.score() > 21 {
+			fmt.Printf("%v\n", p.score())
 		} else {
-			dl.prettyHand()
-			p.prettyHand()
-			hitOrCall(p, dl, dc, askDraw())
+			dl.renderHand()
+			p.renderHand()
+			hitOrCall(p, dl, dc, askHit())
 		}
 	}
-	return strconv.Itoa(p.sumHand())
+	return strconv.Itoa(p.score())
 }
 
-func result(ps, dls int) {
+func result(p, dl *player, dc *deck) {
+	for dls := 0; dls < 17; {
+		dl.hit(*dc)
+		dls = dl.score()
+	}
+	p.renderHand()
+	dl.renderHand()
 	fmt.Print("RESULT: ")
 	bj := 21
-	if (ps > bj && dls > bj) || (ps > bj && dls <= bj) || (dls > ps) {
-		fmt.Println("LOSE")
-	} else if ps <= bj && ps == dls {
+	if (p.score() > bj && dl.score() > bj) || (p.score() > bj && dl.score() <= bj) || (p.score() < dl.score()) {
+		fmt.Println("YOU LOSE")
+	} else if p.score() <= bj && p.score() == dl.score() {
 		fmt.Println("DRAW")
 	} else {
-		fmt.Println("WIN")
+		fmt.Println("YOU WIN!")
 	}
 }
