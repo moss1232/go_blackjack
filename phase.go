@@ -20,16 +20,16 @@ func askHit() bool {
 	return false
 }
 
-func setup(p, dl *player, dc *deck) {
-	dl.hit(*dc)
-	p.hit(*dc)
+func setup(p, dl *player, dc deck) {
+	dl.hit(dc)
+	p.hit(dc)
 	p.renderHand()
 	dl.renderHand()
 }
 
-func hitOrCall(p, dl *player, dc *deck, hit bool) string {
+func hitOrCall(p, dl *player, dc deck, hit bool) string {
 	if hit {
-		p.hit(*dc)
+		p.hit(dc)
 		if p.score() > 21 {
 			fmt.Printf("%v\n", p.score())
 		} else {
@@ -41,9 +41,9 @@ func hitOrCall(p, dl *player, dc *deck, hit bool) string {
 	return strconv.Itoa(p.score())
 }
 
-func result(p, dl *player, dc *deck) {
+func result(p, dl *player, dc deck) {
 	for dls := 0; dls < 17; {
-		dl.hit(*dc)
+		dl.hit(dc)
 		dls = dl.score()
 	}
 	p.renderHand()
