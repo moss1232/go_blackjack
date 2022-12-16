@@ -2,6 +2,13 @@ package main
 
 import "fmt"
 
+const (
+	SPADE = iota + 1
+	CLUB
+	HEART
+	DIA
+)
+
 type player struct {
 	role string
 	hand []card
@@ -19,13 +26,13 @@ func (p *player) renderHand() {
 	fmt.Print("Card:")
 	for _, h := range p.hand {
 		switch h.suit {
-		case 1:
+		case SPADE:
 			fmt.Print("♠")
-		case 2:
+		case CLUB:
 			fmt.Print("♣")
-		case 3:
+		case HEART:
 			fmt.Print("♡")
-		case 4:
+		case DIA:
 			fmt.Print("♢")
 		}
 		fmt.Printf("%d", h.number)
